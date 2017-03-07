@@ -1,4 +1,4 @@
-package com.example.administrator.seaydemo;
+package com.example.administrator.seaydemo.test;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,14 +12,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.administrator.seaydemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,23 +62,7 @@ public class MainActivity extends AppCompatActivity {
         content.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         content.setItemAnimator(new DefaultItemAnimator());
         content.setAdapter(adpter);
-        editQuery.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     @OnClick({R.id.commit_me, R.id.commit_your})
@@ -95,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 adpter.notifyItemInserted(list.size() - 1);
                 editQuery.setText("");
                 content.smoothScrollToPosition(list.size() - 1);
-                show_message(list.size() - 1);
                 break;
         }
     }
