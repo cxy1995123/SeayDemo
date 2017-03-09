@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -22,12 +23,16 @@ import com.example.administrator.seaydemo.Entity.ImageSet;
 import com.example.administrator.seaydemo.R;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,47 +44,6 @@ public class ViewPagerActivity extends AppCompatActivity {
     @BindView(R.id.Relativelayout)
     RelativeLayout Relativelayout;
     private int index = 0;
-    private Handler h = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle b = msg.getData();
-            Bitmap bitmao = b.getParcelable("bitmap");
-            addview(bitmao);
-            d.setMessage("正在加载,共有" + list.size() + "张，正在加载第" + index + "张");
-            d.setProgress(index);
-
-            if (index == list.size()) {
-                Relativelayout.setVisibility(View.VISIBLE);
-                title.setVisibility(View.VISIBLE);
-                content.setVisibility(View.VISIBLE);
-                viewPager.setAdapter(new PagerAdapter() {
-                    @Override
-                    public int getCount() {
-                        return list.size();
-                    }
-
-                    @Override
-                    public boolean isViewFromObject(View view, Object object) {
-                        return view == object;
-                    }
-
-                    @Override
-                    public Object instantiateItem(ViewGroup container, int position) {
-                        container.addView(viewList.get(position));
-                        return viewList.get(position);
-                    }
-
-                    @Override
-                    public void destroyItem(ViewGroup container, int position, Object object) {
-                        container.removeView(viewList.get(position));
-                        //    super.destroyItem(container, position, object);
-                    }
-
-                });
-            }
-
-        }
-    };
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     @BindView(R.id.title)
@@ -101,46 +65,61 @@ public class ViewPagerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 1);
         init();
-
     }
 
-    public void addview(Bitmap b) {
-        index++;
-        ImageView image = new ImageView(this);
-        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        image.setImageBitmap(b);
-        viewList.add(image);
+    public void addview(int index) {
+        for (int i = 0; i < index; i++) {
+            ImageView image = new ImageView(this);
+            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            viewList.add(image);
+        }
+
+        setViewpager();
     }
 
     public void LoadImage(final int i) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                load(i);
-            }
-        }).start();
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+        for (int j = 0; j < i; j++) {
+            final int index1 = j;
+            fixedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    load(index1);
+                }
+            });
+        }
     }
 
     public void load(int i) {
+        URLConnection connection;
+//        FileOutputStream fos = null;
         try {
-            Looper.prepare();
             URL url = new URL(API.Host + list.get(i).getSrc());
-            URLConnection connection = url.openConnection();
+            connection = url.openConnection();
             connection.connect();
             InputStream inputStream = connection.getInputStream();
             Bitmap b = BitmapFactory.decodeStream(inputStream);
-            Log.e("BitmapSize", "run: " + b.getByteCount() + "\nindex：" + index);
+//            String path = Environment.getExternalStorageDirectory() + "\\ImageLoad\\" + i + ".jpge";
+//            fos = new FileOutputStream(path);
+//            int total = 0;
+//            int len;
+//            byte[] buff = new byte[1024 * 8];
+//            while ((len = inputStream.read(buff)) != -1) {
+//                total += len;
+//                fos.write(buff, 0, len);
+//            }
             Message m = h.obtainMessage();
             Bundle bundle = new Bundle();
             bundle.putParcelable("bitmap", b);
             m.setData(bundle);
             h.sendMessage(m);
+//            fos.close();
+            inputStream.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public void init() {
         ImageClient.getImageClient().LoadImageList(id).enqueue(new UICallback() {
@@ -153,27 +132,58 @@ public class ViewPagerActivity extends AppCompatActivity {
                 imageSet = new Gson().fromJson(body, ImageSet.class);
                 title.setText(imageSet.getTitle());
                 list = imageSet.getList();
-                d.setMax(list.size());
-                d.setMessage("正在加载,共有" + list.size() + "张，正在加载第" + index + "张");
-                d.setProgress(index);
-                d.show();
-
-                for (int i = 0; i < list.size(); i++) {
-                    LoadImage(i);
-                }
-                viewPager.addOnPageChangeListener
-                        (new ViewPager.SimpleOnPageChangeListener() {
-                            @Override
-                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                                content.setText(1 + position + "/" + imageSet.getSize());
-                            }
-                        });
-
+                Log.e("size", "OnResponse: " + list.size());
+                addview(list.size());
+                setViewpager();
+                load(list.size());
+                LoadImage(list.size());
             }
         });
 
     }
 
+    private void setViewpager() {
+        viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return viewList.size();
+            }
 
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                container.addView(viewList.get(position));
+                return viewList.get(position);
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView(viewList.get(position));
+            }
+        });
+
+        viewPager.addOnPageChangeListener
+                (new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                        content.setText(1 + position + "/" + imageSet.getSize());
+                    }
+                });
+    }
+
+    private Handler h = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle b = msg.getData();
+            Bitmap bitmao = b.getParcelable("bitmap");
+            viewList.get(index).setImageBitmap(bitmao);
+            index++;
+            Log.e("", "handleMessage: " + index + "size:" + (bitmao.getByteCount() / 1024));
+        }
+    };
 }

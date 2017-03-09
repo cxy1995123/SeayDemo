@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#353333"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -10,7 +11,7 @@
         android:id="@+id/Relativelayout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:visibility="gone">
+        >
 
         <android.support.v4.view.ViewPager
 
@@ -21,14 +22,18 @@
         </android.support.v4.view.ViewPager>
 
         <TextView
+            android:background="@color/color_text_bg"
             android:id="@+id/title"
+            android:textColor="@color/color_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="title"
             android:textSize="18sp" />
 
         <TextView
+            android:textColor="@color/color_text"
             android:id="@+id/content"
+            android:background="@color/color_text_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
