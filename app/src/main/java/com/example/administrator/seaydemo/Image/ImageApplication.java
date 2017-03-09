@@ -51,9 +51,7 @@ public class ImageApplication extends Application {
                 .build();
         //全局初始化此配置
         ImageLoader.getInstance().init(config);
-    }
 
-    public static DisplayImageOptions getDisplayImageOptions() {
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.bg1) // 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.ic_launcher) // 设置图片Uri为空或是错误的时候显示的图片
@@ -62,6 +60,10 @@ public class ImageApplication extends Application {
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .displayer(new RoundedBitmapDisplayer(1)) // 设置成圆角图片
                 .build();
+    }
+
+    public static DisplayImageOptions getDisplayImageOptions() {
+
         return options;
     }
 }

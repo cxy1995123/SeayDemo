@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.administrator.seaydemo.Entity.ImageSet;
 import com.example.administrator.seaydemo.R;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,16 +79,11 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     public void LoadImage(final int i) {
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
         for (int j = 0; j < i; j++) {
-            final int index1 = j;
-            fixedThreadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    load(index1);
-                }
-            });
+
+            ImageLoader.getInstance().displayImage(API.Host + list.get(j).getSrc(), viewList.get(j), ImageApplication.getDisplayImageOptions());
         }
+
     }
 
     public void load(int i) {
@@ -133,10 +129,9 @@ public class ViewPagerActivity extends AppCompatActivity {
                 title.setText(imageSet.getTitle());
                 list = imageSet.getList();
                 Log.e("size", "OnResponse: " + list.size());
-                addview(list.size());
+                addview(list.size() - 1);
                 setViewpager();
-                load(list.size());
-                LoadImage(list.size());
+                LoadImage(list.size() - 1);
             }
         });
 
@@ -171,7 +166,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                        content.setText(1 + position + "/" + imageSet.getSize());
+                        content.setText(1 + position + "/" + (imageSet.getSize() - 1));
                     }
                 });
     }
