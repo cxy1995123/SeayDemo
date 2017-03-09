@@ -3,17 +3,18 @@
     package="com.example.administrator.seaydemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".Image.ImageApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".test.MainActivity">
+        <activity android:name=".Image.ViewPagerActivity">
 
         </activity>
-       <activity android:name=".Image.ImageLoadActivity">
+       <activity android:name=".Image.ImageShowActivity">
            <intent-filter>
                <action android:name="android.intent.action.MAIN" />
                <category android:name="android.intent.category.LAUNCHER" />

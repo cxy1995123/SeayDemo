@@ -4,81 +4,18 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.administrator.seaydemo.test.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.example.administrator.seaydemo.Image.ImageShowActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark">
+    <include
+        android:id="@+id/include"
+        layout="@layout/titlebar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="标题"
-            android:textColor="@color/colorAccent"
-            android:textSize="22sp" />
-    </android.support.v7.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_below="@id/toolbar"
+    <FrameLayout
+        android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@+id/include">
+    </FrameLayout>
 
-      >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@id/content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edit_query"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:background="@drawable/editext_bg"
-                android:hint="输入内容"
-                android:padding="5dp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:text="发送">
-
-                <Button
-                    android:id="@+id/commit_me"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:text="提交" />
-
-                <Button
-                    android:id="@+id/commit_your"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:text="提交" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
 </RelativeLayout>
