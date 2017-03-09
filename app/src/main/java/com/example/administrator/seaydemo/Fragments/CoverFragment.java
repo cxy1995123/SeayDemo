@@ -78,7 +78,8 @@ public class CoverFragment extends Fragment {
             public void onRefreshBegin(PtrFrameLayout frame) {
                 list.clear();
                 pager = 1;
-                LoadImagelist(7, 1);
+                LoadImagelist(get_Id(), pager);
+                Adpter.notifyDataSetChanged();
                 frame.refreshComplete();
             }
         });
@@ -120,4 +121,16 @@ public class CoverFragment extends Fragment {
     }
 
 
+    public static int get_Id() {
+        if (id++ > 7) {
+            id = 0;
+        }
+        return id++;
+    }
+
+
+    public static int getPager() {
+        pager++;
+        return pager;
+    }
 }

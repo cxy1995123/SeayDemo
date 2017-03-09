@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,8 +39,6 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
 
     public void setList(List<ImageCover.TngouBean> list) {
         this.list = list;
-        notifyDataSetChanged();
-
     }
 
     public CoverAdpter(Context context) {
@@ -54,10 +53,9 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
     @Override
     public void onBindViewHolder(final CoverAdpter.ViewHoder holder, int position) {
         int pos = holder.getAdapterPosition();
-        int pos2 = holder.getLayoutPosition();
-
+        holder.root.setAnimation(AnimationUtils.loadAnimation(context, R.anim.item_anim));
         holder.title.setText(list.get(pos).getTitle());
-        holder.num.setText("图片张数："+list.get(pos).getSize());
+        holder.num.setText("图片张数：" + list.get(pos).getSize());
         ImageLoader.getInstance().displayImage(API.Host + list.get(position).getImg(), holder.image, ImageApplication.getDisplayImageOptions());
         //通过URL拿到SD卡中缓存的图片
         // ImageLoader.getInstance().getDiskCache().get()
@@ -69,6 +67,15 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
                     onItemOnclickListener.OnItemClick(pos);
                 }
             });
+            holder.root.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = holder.getAdapterPosition();
+                    onItemOnclickListener.OnItemLongClick(pos);
+                    return false;
+                }
+            });
+
         }
 
     }

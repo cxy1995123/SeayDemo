@@ -168,6 +168,16 @@ public class ViewPagerActivity extends AppCompatActivity {
                         content.setText(1 + position + "/" + (imageSet.getSize() - 1));
                     }
                 });
+
+        viewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageView imageView = (ImageView) viewPager.getChildAt(viewPager.getCurrentItem());
+                imageView.getDrawingCache()
+
+            }
+        });
+
     }
 
     private Handler h = new Handler() {
