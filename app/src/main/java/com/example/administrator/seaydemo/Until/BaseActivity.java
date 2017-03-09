@@ -16,6 +16,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private static List<String> list;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);

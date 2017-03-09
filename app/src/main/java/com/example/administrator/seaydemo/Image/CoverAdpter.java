@@ -56,7 +56,7 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
         int pos = holder.getAdapterPosition();
         int pos2 = holder.getLayoutPosition();
         // holder.title.setText(list.get(position).getTitle());
-        holder.title.setText("Adpter：" + pos + "Layout" + pos2);
+        holder.title.setText(list.get(pos).getSize()+"");
         ImageLoader.getInstance().displayImage(API.Host + list.get(position).getImg(), holder.image, ImageApplication.getDisplayImageOptions());
         //通过URL拿到SD卡中缓存的图片
         // ImageLoader.getInstance().getDiskCache().get()

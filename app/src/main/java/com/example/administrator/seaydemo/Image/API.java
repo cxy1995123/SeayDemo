@@ -12,8 +12,6 @@ public class API {
 
     public static final String leibiao = "http://www.tngou.net/tnfs/api/classify";
 
-
-
     //获取列表标题
     public static String getImage_Url(int id,int page) {
 
