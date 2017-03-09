@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#0008ff</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_editext">#b03b50ed</color>
-    <color name="color_kib">#6d7278</color>
+    <color name="color_kib">#b6001eff</color>
     <color name="color_text_bg">#8b383838</color>
     <color name="color_text">#ffffff</color>
 </resources>

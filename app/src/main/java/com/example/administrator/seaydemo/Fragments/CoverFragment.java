@@ -78,7 +78,7 @@ public class CoverFragment extends Fragment {
             public void onRefreshBegin(PtrFrameLayout frame) {
                 list.clear();
                 pager = 1;
-                LoadImagelist(1, 1);
+                LoadImagelist(7, 1);
                 frame.refreshComplete();
             }
         });

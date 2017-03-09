@@ -55,8 +55,9 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
     public void onBindViewHolder(final CoverAdpter.ViewHoder holder, int position) {
         int pos = holder.getAdapterPosition();
         int pos2 = holder.getLayoutPosition();
-        // holder.title.setText(list.get(position).getTitle());
-        holder.title.setText(list.get(pos).getSize()+"");
+
+        holder.title.setText(list.get(pos).getTitle());
+        holder.num.setText("图片张数："+list.get(pos).getSize());
         ImageLoader.getInstance().displayImage(API.Host + list.get(position).getImg(), holder.image, ImageApplication.getDisplayImageOptions());
         //通过URL拿到SD卡中缓存的图片
         // ImageLoader.getInstance().getDiskCache().get()
@@ -84,6 +85,7 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
     public class ViewHoder extends RecyclerView.ViewHolder {
         private TextView title;
         private ImageView image;
+        private TextView num;
         private LinearLayout root;
 
         public ViewHoder(View itemView) {
@@ -91,6 +93,7 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
             title = (TextView) itemView.findViewById(R.id.Image_title);
             image = (ImageView) itemView.findViewById(R.id.Image_image);
             root = (LinearLayout) itemView.findViewById(R.id.Image_root);
+            num = (TextView) itemView.findViewById(R.id.Image_num);
         }
     }
 }

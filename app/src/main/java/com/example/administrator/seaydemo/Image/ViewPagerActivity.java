@@ -128,7 +128,6 @@ public class ViewPagerActivity extends AppCompatActivity {
                 imageSet = new Gson().fromJson(body, ImageSet.class);
                 title.setText(imageSet.getTitle());
                 list = imageSet.getList();
-                Log.e("size", "OnResponse: " + list.size());
                 addview(list.size() - 1);
                 setViewpager();
                 LoadImage(list.size() - 1);

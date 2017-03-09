@@ -36,7 +36,7 @@ public class ImageApplication extends Application {
         File cacheDir = StorageUtils.getOwnCacheDirectory(context, "imageloader/Cache");
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .memoryCacheExtraOptions(768, 1280) // max width, max height，即保存的每个缓存文件的最大长宽
-                .threadPoolSize(5) //线程池内加载的数量
+                .threadPoolSize(8) //线程池内加载的数量
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator()) //将保存的时候的URI名称用MD5 加密
