@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_image_show_2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.seaydemo.Activity.ImageShow_2">
+
+
+    <com.example.administrator.seaydemo.Until.MyLoadShow
+        android:id="@+id/MyLoadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/Image_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_root"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/Image_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#565656"
+            android:lines="1"
+            android:textColor="@color/color_text" />
+
+        <ImageView
+            android:id="@+id/Imgae_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/Image_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#565656"
+            android:gravity="center"
+            android:lines="1"
+            android:text="1"
+            android:textColor="@color/color_text" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/button_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/Image_alter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="上一页" />
+
+        <Button
+            android:id="@+id/Image_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="保存" />
+
+        <Button
+            android:id="@+id/Image_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</RelativeLayout>

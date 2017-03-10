@@ -1,19 +1,18 @@
-package com.example.administrator.seaydemo.Image;
+package com.example.administrator.seaydemo.Adpter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.seaydemo.Entity.ImageCover;
+import com.example.administrator.seaydemo.Image.API;
+import com.example.administrator.seaydemo.Image.ImageApplication;
 import com.example.administrator.seaydemo.R;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -39,6 +38,7 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
 
     public void setList(List<ImageCover.TngouBean> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public CoverAdpter(Context context) {
@@ -53,7 +53,7 @@ public class CoverAdpter extends RecyclerView.Adapter<CoverAdpter.ViewHoder> {
     @Override
     public void onBindViewHolder(final CoverAdpter.ViewHoder holder, int position) {
         int pos = holder.getAdapterPosition();
-        holder.root.setAnimation(AnimationUtils.loadAnimation(context, R.anim.item_anim));
+        //   holder.root.setAnimation(AnimationUtils.loadAnimation(context, R.anim.item_anim));
         holder.title.setText(list.get(pos).getTitle());
         holder.num.setText("图片张数：" + list.get(pos).getSize());
         ImageLoader.getInstance().displayImage(API.Host + list.get(position).getImg(), holder.image, ImageApplication.getDisplayImageOptions());

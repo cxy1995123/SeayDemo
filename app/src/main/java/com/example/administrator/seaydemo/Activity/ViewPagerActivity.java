@@ -1,4 +1,4 @@
-package com.example.administrator.seaydemo.Image;
+package com.example.administrator.seaydemo.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,6 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.seaydemo.Entity.ImageSet;
+import com.example.administrator.seaydemo.Image.API;
+import com.example.administrator.seaydemo.Image.ImageApplication;
+import com.example.administrator.seaydemo.Image.ImageClient;
+import com.example.administrator.seaydemo.Image.UICallback;
 import com.example.administrator.seaydemo.R;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -74,13 +78,11 @@ public class ViewPagerActivity extends AppCompatActivity {
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             viewList.add(image);
         }
-
         setViewpager();
     }
 
     public void LoadImage(final int i) {
         for (int j = 0; j < i; j++) {
-
             ImageLoader.getInstance().displayImage(API.Host + list.get(j).getSrc(), viewList.get(j), ImageApplication.getDisplayImageOptions());
         }
 
@@ -127,6 +129,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             public void OnResponse(Call call, String body) {
                 imageSet = new Gson().fromJson(body, ImageSet.class);
                 title.setText(imageSet.getTitle());
+                content.setText(1 + "/" + (imageSet.getSize() - 1));
                 list = imageSet.getList();
                 addview(list.size() - 1);
                 setViewpager();
@@ -163,17 +166,21 @@ public class ViewPagerActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener
                 (new ViewPager.SimpleOnPageChangeListener() {
                     @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        content.setText(1 + position + "/" + (imageSet.getSize() - 1));
+                    }
+
+                    @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                        content.setText(1 + position + "/" + (imageSet.getSize() - 1));
+
                     }
                 });
 
         viewPager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView imageView = (ImageView) viewPager.getChildAt(viewPager.getCurrentItem());
-                imageView.getDrawingCache()
 
             }
         });

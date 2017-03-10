@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.seaydemo.Image.ImageShowActivity">
+    tools:context="com.example.administrator.seaydemo.Activity.ImageShowActivity">
 
     <include
         android:id="@+id/include"
@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/include">
+
     </FrameLayout>
 
 </RelativeLayout>

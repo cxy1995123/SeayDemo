@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -12,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.administrator.seaydemo.Activity.ImageShow_2;
 import com.example.administrator.seaydemo.Entity.ImageCover;
-import com.example.administrator.seaydemo.Image.CoverAdpter;
+import com.example.administrator.seaydemo.Image.API;
+import com.example.administrator.seaydemo.Adpter.CoverAdpter;
 import com.example.administrator.seaydemo.Image.ImageClient;
 import com.example.administrator.seaydemo.Image.UICallback;
-import com.example.administrator.seaydemo.Image.ViewPagerActivity;
+import com.example.administrator.seaydemo.Activity.ViewPagerActivity;
 import com.example.administrator.seaydemo.R;
+import com.example.administrator.seaydemo.Until.ShareUntil;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -91,14 +93,14 @@ public class CoverFragment extends Fragment {
             @Override
             public void OnItemClick(int pos) {
                 int id = list.get(pos).getId();
-                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+                Intent intent = new Intent(getActivity(), ImageShow_2.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
             }
 
             @Override
             public void OnItemLongClick(int pos) {
-
+                ShareUntil.shareSdk(getActivity(), API.Host + list.get(pos).getImg());
             }
         });
     }
@@ -133,4 +135,6 @@ public class CoverFragment extends Fragment {
         pager++;
         return pager;
     }
+
+
 }

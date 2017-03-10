@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#353333"
+    android:background="#1b1b1b"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Image.ViewPagerActivity">
+    tools:context=".Activity.ViewPagerActivity">
 
     <RelativeLayout
         android:id="@+id/Relativelayout"
@@ -27,8 +27,8 @@
             android:textColor="@color/color_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
-            android:textSize="18sp" />
+            android:text=""
+            android:textSize="14sp" />
 
         <TextView
             android:textColor="@color/color_text"
@@ -37,8 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="1/4"
-            android:textSize="18sp" />
+            android:text=""
+            android:gravity="right"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </LinearLayout>

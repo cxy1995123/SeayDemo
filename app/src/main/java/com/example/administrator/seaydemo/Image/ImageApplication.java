@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.example.administrator.seaydemo.R;
+import com.mob.commons.SHARESDK;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
@@ -17,6 +18,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by duangniu000 on 2017/3/8.
  */
@@ -27,6 +30,7 @@ public class ImageApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ShareSDK.initSDK(getApplicationContext(), "1bf7ebb126e50");
         initImageLoader(getApplicationContext());
     }
 
@@ -35,7 +39,7 @@ public class ImageApplication extends Application {
         //缓存文件的目录
         File cacheDir = StorageUtils.getOwnCacheDirectory(context, "imageloader/Cache");
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheExtraOptions(768, 1280) // max width, max height，即保存的每个缓存文件的最大长宽
+                .memoryCacheExtraOptions(400, 400) // max width, max height，即保存的每个缓存文件的最大长宽
                 .threadPoolSize(8) //线程池内加载的数量
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
