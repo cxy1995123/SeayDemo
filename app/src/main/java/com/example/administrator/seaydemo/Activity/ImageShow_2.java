@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ public class ImageShow_2 extends AppCompatActivity implements ImageLoadingProgre
     private int id;
     private ImageSet imageSet;
     private List<ImageSet.ListBean> list;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +82,17 @@ public class ImageShow_2 extends AppCompatActivity implements ImageLoadingProgre
             public void OnResponse(Call call, String body) {
                 imageSet = new Gson().fromJson(body, ImageSet.class);
                 list = imageSet.getList();
-                ImageLoader.getInstance().displayImage(API.Host + list.get(0).getSrc(), ImgaeShow, ImageApplication.getDisplayImageOptions(), ImageShow_2.this, ImageShow_2.this);
+                ImageLoader.getInstance().displayImage(API.Host + list.get(index).getSrc(), ImgaeShow, ImageApplication.getDisplayImageOptions(), ImageShow_2.this, ImageShow_2.this);
 
             }
         });
     }
 
 
-
     @Override
     public void onProgressUpdate(String imageUri, View view, int current, int total) {
         System.out.println(current + "" + total);
+        Log.e("size", "onProgressUpdate: " + total);
     }
 
     @Override
@@ -107,7 +109,9 @@ public class ImageShow_2 extends AppCompatActivity implements ImageLoadingProgre
 
     @Override
     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+        ImageRoot.setVisibility(View.VISIBLE);
         myLoadView.setVisibility(View.GONE);
+        buttonRoot.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,6 +128,11 @@ public class ImageShow_2 extends AppCompatActivity implements ImageLoadingProgre
             case R.id.Image_save:
                 break;
             case R.id.Image_next:
+                myLoadView.setVisibility(View.VISIBLE);
+                ImageRoot.setVisibility(View.GONE);
+                buttonRoot.setVisibility(View.GONE);
+                index++;
+                ImageLoader.getInstance().displayImage(API.Host + list.get(index).getSrc(), ImgaeShow, ImageApplication.getDisplayImageOptions(), ImageShow_2.this, ImageShow_2.this);
                 break;
         }
     }
